@@ -37,6 +37,7 @@ namespace GeekShopping.ProductApi.Repository
 
                 _context.Products.Remove(products);
                 await _context.SaveChangesAsync();
+                return true;    
 
             }
             catch (Exception)
@@ -52,7 +53,7 @@ namespace GeekShopping.ProductApi.Repository
             return _mapper.Map<List<ProductVO>>(products);
         }
 
-        public async Task<ProductVO> FindById(int id)
+        public async Task<ProductVO> FindById(long id)
         {
             var products = await _context.Products.Where(p => p.Id == id)
                 .FirstOrDefaultAsync();
