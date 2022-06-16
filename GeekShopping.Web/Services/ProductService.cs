@@ -1,6 +1,7 @@
 ﻿using GeekShopping.Web.Models;
 using GeekShopping.Web.Services.IServices;
 using GeekShopping.Web.Utils;
+using Microsoft.AspNetCore.Mvc;
 
 namespace GeekShopping.Web.Services
 {
@@ -24,14 +25,14 @@ namespace GeekShopping.Web.Services
             return await response.ReadContentAs<ProductModel>();
         }
 
-        public async Task<ProductModel> CreateProduct(ProductModel model)
+        public async Task<ProductModel> CreateProduct([FromBody] ProductModel model)
         {
             var response = await _client.PostAsJson($"{BasePath}", model);
             if (response.IsSuccessStatusCode) return await response.ReadContentAs<ProductModel>();
             else throw new Exception("something went wrong when calling API");
         }
 
-        public async Task<ProductModel> UpdateProduct(ProductModel model)
+        public async Task<ProductModel> UpdateProduct([FromBody] ProductModel model)
         {
             var response = await _client.PutAsJson($"{BasePath}", model);
             if (response.IsSuccessStatusCode) return await response.ReadContentAs<ProductModel>();
